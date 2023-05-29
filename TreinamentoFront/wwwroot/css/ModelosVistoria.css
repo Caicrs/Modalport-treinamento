@@ -1,0 +1,107 @@
+﻿.custom-dropdown {
+    background-color: transparent;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    color: white;
+    outline: none;
+    > option
+
+{
+    color: black;
+}
+
+}
+
+#itemList, #invalidList {
+    > div
+
+{
+    color: white;
+}
+
+}
+
+.hide, .hide-2{
+    display: none;
+}
+
+.deleteBtn, .deleteBtnInvalidReponses {
+    border: none;
+    height: fit-content;
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+.item {
+    width: 100%;
+}
+
+.item-container {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    border: 1px solid white;
+    padding: 6px 24px;
+    align-items: center;
+    border-radius: 6px;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover
+
+{
+    opacity: 0.5;
+}
+
+}
+
+    #data-image{
+        display:flex;
+        align-items:center;
+        gap:12px;
+    }
+
+.document-name{
+    width:100%;
+    text-align:right;
+    color:white;
+    font-size:12px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+#itemList, #itemListInvalidResponses {
+    gap: 12px;
+}
+
+.image-upload {
+    width: 100%;
+    transition: 0.3s;
+    display: flex;
+}
+
+    .image-upload input[type="file"] {
+        display: none;
+    }
+
+    .image-upload label {
+
+        display: inline-block;
+        padding: 10px 20px;
+        border:1px solid #ebebeb;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .image-upload label:hover {
+            background-color: #ccc;
+        }
+
+        .image-upload label i {
+            margin-right: 5px;
+        }
