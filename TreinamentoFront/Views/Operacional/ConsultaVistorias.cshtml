@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Consulta vistorias";
+}
+
+
+<div class="container container-filters p-5">
+    <div class="column" style="display:flex;flex-direction:column;gap:22px">
+        <div class="col">
+            <div class="col input-group">
+                <input type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" style="display:flex;justify-content:flex-end">
+            <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                + Criar vistoria
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="border-radius">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">DESCRICAO</th>
+            </tr>
+        </thead>
+        <tbody id="register-list"></tbody>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">DESCRICAO</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="bs-example">
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal Title</h5>
+                    <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>This is a simple Bootstrap modal. Click the "Close button", "cross icon" or "dark gray area" to close or hide the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary close-btn" data-dismiss="modal">Close Modal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        // Open modal on button click
+    $("#create-vistoria-btn").click(function () {
+            $("#myModal").modal('show);
+        });
+
+
+        // Close modal on button click
+        $(".close-btn").click(function () {
+            $("#myModal").modal('hide');
+        });
+</script>
+
+
+<script>
+
+    function getMockData() {
+
+        var mockProducts = [
+            { id: 1, description: "C.K.G" },
+            { id: 2, description: "C.K.G" },
+            // Add more mock products as needed
+        ];
+
+        var html = "";
+
+        mockProducts.forEach(function (product) {
+            html += `
+        <tr>
+            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
+            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
+            <th>${product.id}</th>
+            <td>${product.description}</td>
+        </tr>
+    `;
+        });
+
+        document.getElementById("register-list").innerHTML = html;
+    }
+
+    // Call the function to fetch and map the data
+    getMockData();
+
+    function handleEdit(itemId) {
+        // Handle the button click and the passed ID
+        console.log("Button clicked for item with ID: " + itemId);
+
+        // Call another function or perform any desired action with the ID
+        // ...
+    }
+
+    function handleRemove(itemId) {
+        // Handle the button click and the passed ID
+        console.log("Button clicked for item with ID: " + itemId);
+
+        // Call another function or perform any desired action with the ID
+        // ...
+    }
+
+</script>
+
+
