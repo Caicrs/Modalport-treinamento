@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bNCoY4f6vRlUURT9knTVCwWf3ndAU4rTVnPJWhjGdTk=",
+  "Hash": "/G/COcIS1n12dMKN5d5t1VSir0Azc9HP0PKQDNPR2sw=",
   "Source": "TreinamentoFront",
   "BasePath": "_content/TreinamentoFront",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Lord\\Documents\\ModalPort\\projetos\\TreinamentoFront\\TreinamentoFront\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\TreinamentoFront.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Lord\\Documents\\ModalPort\\projetos\\TreinamentoFront\\TreinamentoFront\\wwwroot\\css\\ModelosVistoria.css",
+      "SourceId": "TreinamentoFront",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lord\\Documents\\ModalPort\\projetos\\TreinamentoFront\\TreinamentoFront\\wwwroot\\",
+      "BasePath": "_content/TreinamentoFront",
+      "RelativePath": "css/ModelosVistoria.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ModelosVistoria.css"
     },
     {
       "Identity": "C:\\Users\\Lord\\Documents\\ModalPort\\projetos\\TreinamentoFront\\TreinamentoFront\\wwwroot\\css\\site.css",
