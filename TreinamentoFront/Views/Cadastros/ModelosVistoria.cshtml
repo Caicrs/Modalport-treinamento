@@ -1,0 +1,185 @@
+﻿@{
+    ViewData["Title"] = "Modelos de vistoria";
+    List<string> typesList = ViewBag.ItensOptions;
+}
+@model ItensOptions;
+
+
+
+
+<div class="container container-filters p-5">
+    <div class="column" style="display:flex;flex-direction:column;gap:22px">
+        <div class="col">
+            <div class="col input-group">
+                <input type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" style="display:flex;justify-content:flex-end">
+            <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                + Criar vistoria
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="border-radius">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">DESCRICAO</th>
+            </tr>
+        </thead>
+        <tbody id="register-list"></tbody>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">DESCRICAO</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="bs-example">
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Inserir modelo de vistoria</h5>
+                        <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="processo-input" type="text" class="form-control" placeholder="Inserir processo" aria-label="Processo" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Inserir descricao" aria-label="Descricao" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
+                        <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
+                            <input id="descricao-item-input" type="text" class="form-control" placeholder="Inserir descricao" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                            <input id="ordem-item-input" type="text" class="form-control" placeholder="Inserir ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                            @Html.DropDownList("SelectedItems", new SelectList(typesList), "Selecionar tipo do item", new { id = "myDropdown", @class = "custom-dropdown"})
+                            <div id="data-input" class="hide">
+                                <input type="text" class="form-control" id="textInput" placeholder="Inserir multiplos dados" />
+                            </div>
+                            <div id="data-input-unique" class="hide-2">
+                                <input type="text" class="form-control" id="textInputUnique" placeholder="Inserir dado unico" />
+                            </div>
+
+
+                            <div id="itemList" class="d-flex flex-column"></div>
+
+
+                            <div id="data-input-invalid-responses">
+                                <input type="text" class="form-control" id="textInputInvalidReponses" placeholder="Inserir respostas que invalidam" />
+                            </div>
+                            <div id="itemListInvalidResponses" class="d-flex flex-column"></div>
+                            <div><button id="addItem" type="button" class="btn btn-light test">Adicionar item</button></div>
+                        </div>
+
+                        <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
+
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr style="color: white">
+                                            <th scope="col">Ordem</th>
+                                            <th scope="col">Descricao</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Respostas_invalidam</th>
+                                            <th scope="col">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="itens-list"></tbody>
+                                </table>
+                            </div>
+                           
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    // Open modal on button click
+    $("#create-vistoria-btn").click(function () {
+        $("#myModal").modal('show);
+                                     });
+
+
+    // Close modal on button click
+    $(".close-btn").click(function () {
+        $("#myModal").modal('hide');
+    });
+
+</script>
+
+
+<script>
+
+    function getMockData() {
+
+        var mockProducts = [
+            { id: 1, description: "C.K.G" },
+            { id: 2, description: "C.K.G" },
+            // Add more mock products as needed
+        ];
+
+        var html = "";
+
+        mockProducts.forEach(function (product) {
+            html += `
+                                        <tr>
+                                            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
+                                            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
+                                            <th>${product.id}</th>
+                                            <td>${product.description}</td>
+                                        </tr>
+                                    `;
+        });
+
+        document.getElementById("register-list").innerHTML = html;
+    }
+
+    // Call the function to fetch and map the data
+    getMockData();
+
+    function handleEdit(itemId) {
+        // Handle the button click and the passed ID
+        console.log("Button clicked for item with ID: " + itemId);
+
+        // Call another function or perform any desired action with the ID
+        // ...
+    }
+
+    function handleRemove(itemId) {
+        // Handle the button click and the passed ID
+        console.log("Button clicked for item with ID: " + itemId);
+
+        // Call another function or perform any desired action with the ID
+        // ...
+    }
+
+</script>
+
+
