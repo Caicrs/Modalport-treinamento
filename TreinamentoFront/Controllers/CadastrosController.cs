@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Xml.Linq;
 using TreinamentoFront.Models;
-using TreinamentoFront.Models.Auth;
 
 
 
@@ -11,9 +10,6 @@ namespace TreinamentoFront.Controllers
 {
     public class CadastrosController : Controller
     {
-
-        private List<LoginViewModel> LoginList = new List<LoginViewModel> { };
-
         private static HttpClient _CLIENT;
         public void RequestSender()
         {
@@ -60,22 +56,17 @@ namespace TreinamentoFront.Controllers
 
         // Action method for handling the login form submission
         [HttpPost]
-        public bool Login(LoginViewModel model)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            try
+            ViewBag.Message = "DROP-4 >>>>>>>>>>";
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                if (string.IsNullOrEmpty(model.Username))
-                    throw new Exception("Username is empty!");
-                if (string.IsNullOrEmpty(model.Password))
-                    throw new Exception("Password is empty!");
-
-                LoginList.Add(model);
+                return ModelosVistoria();
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                return View("Index");
             }
-            return true;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

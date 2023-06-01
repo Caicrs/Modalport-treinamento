@@ -26,7 +26,8 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th class="w-25">Actions</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -34,7 +35,8 @@
         <tbody id="register-list"></tbody>
         <thead>
             <tr>
-                <th class="w-25">Actions</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -92,20 +94,12 @@
 
         mockProducts.forEach(function (product) {
             html += `
-             <tr>
-                                                                                     <td>
-                                                                                        <div class="d-flex">
-                                                                                            <div class="w-100">
-                                                                                                            <button onclick="handleEdit()" class="btn btn-primary btn-sm"> Editar</button>
-                                                                                            </div>
-                                                                                            <div class="w-100">
-                                                                                                   <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"> Deletar</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                <td>${product.id}</td>
-                                                                                <td>${product.description}</td>
-                                                                            </tr>
+        <tr>
+            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
+            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
+            <th>${product.id}</th>
+            <td>${product.description}</td>
+        </tr>
     `;
         });
 

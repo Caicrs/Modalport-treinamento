@@ -26,7 +26,8 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th class="w-25">Actions</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -34,7 +35,8 @@
         <tbody id="register-list"></tbody>
         <thead>
             <tr>
-                <th class="w-25">Actions</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -49,18 +51,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Adicionar cadastro</h5>
+                    <h5 class="modal-title">Modal Title</h5>
                     <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-
-
-                    <input type="text" placeholder="Inserir descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
-
-
+                    <p>This is a simple Bootstrap modal. Click the "Close button", "cross icon" or "dark gray area" to close or hide the modal.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary close-btn" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn btn-primary close-btn" data-dismiss="modal">Close Modal</button>
                 </div>
             </div>
         </div>
@@ -69,16 +67,16 @@
 
 
 <script>
-    // Open modal on button click
+        // Open modal on button click
     $("#create-vistoria-btn").click(function () {
-        $("#myModal").modal('show);
-                });
+            $("#myModal").modal('show);
+        });
 
 
-    // Close modal on button click
-    $(".close-btn").click(function () {
-        $("#myModal").modal('hide');
-    });
+        // Close modal on button click
+        $(".close-btn").click(function () {
+            $("#myModal").modal('hide');
+        });
 </script>
 
 
@@ -96,21 +94,13 @@
 
         mockProducts.forEach(function (product) {
             html += `
-                    <tr>
-                                                                                         <td>
-                                                                                            <div class="d-flex">
-                                                                                                <div class="w-100">
-                                                                                                                <button onclick="handleEdit()" class="btn btn-primary btn-sm"> Editar</button>
-                                                                                                </div>
-                                                                                                <div class="w-100">
-                                                                                                       <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"> Deletar</button>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    <td>${product.id}</td>
-                                                                                    <td>${product.description}</td>
-                                                                                </tr>
-            `;
+        <tr>
+            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
+            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
+            <th>${product.id}</th>
+            <td>${product.description}</td>
+        </tr>
+    `;
         });
 
         document.getElementById("register-list").innerHTML = html;
