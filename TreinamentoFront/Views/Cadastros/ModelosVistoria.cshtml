@@ -4,18 +4,6 @@
 }
 @model ItensOptions;
 
-<h1>@ViewBag.Message</h1>
-<form asp-controller="cadastros" asp-action="ModelosVistoria" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="Username" />
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="Password" />
-
-    <button type="submit">Login</button>
-</form>
-
-
 <div class="container container-filters p-5">
     <div class="column" style="display:flex;flex-direction:column;gap:22px">
         <div class="col">
@@ -39,8 +27,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th class="w-25">Actions</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -48,8 +35,7 @@
         <tbody id="register-list"></tbody>
         <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th class="w-25">Actions</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -142,7 +128,7 @@
     // Open modal on button click
     $("#create-vistoria-btn").click(function () {
         $("#myModal").modal('show);
-                                                     });
+                                                                     });
 
 
     // Close modal on button click
@@ -167,13 +153,21 @@
 
         mockProducts.forEach(function (product) {
             html += `
-                                                        <tr>
-                                                            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
-                                                            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
-                                                            <th>${product.id}</th>
-                                                            <td>${product.description}</td>
-                                                        </tr>
-                                                    `;
+                                                                        <tr>
+                                                                                 <td>
+                                                                                    <div class="d-flex">
+                                                                                        <div class="w-100">
+                                                                                                        <button onclick="handleEdit()" class="btn btn-primary btn-sm"> Editar</button>
+                                                                                        </div>
+                                                                                        <div class="w-100">
+                                                                                               <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"> Deletar</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            <td>${product.id}</td>
+                                                                            <td>${product.description}</td>
+                                                                        </tr>
+                                                                    `;
         });
 
         document.getElementById("register-list").innerHTML = html;

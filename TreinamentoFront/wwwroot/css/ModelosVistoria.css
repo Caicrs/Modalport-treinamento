@@ -3,7 +3,6 @@
     background: red;
 }
 
-
 .custom-dropdown {
     background-color: transparent;
     padding: 10px;
@@ -146,3 +145,6 @@
 .hide, .hide-2, .hide-3 {
     display: none;
 }
+
+
+
