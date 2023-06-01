@@ -26,8 +26,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col w-25">ACOES</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -35,8 +34,7 @@
         <tbody id="register-list"></tbody>
         <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col w-25">ACOES</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -91,16 +89,19 @@
         ];
 
         var html = "";
-
         mockProducts.forEach(function (product) {
             html += `
-        <tr>
-            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
-            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
-            <th>${product.id}</th>
-            <td>${product.description}</td>
-        </tr>
-    `;
+                                                            <tr>
+                                                                  <td class="w-25">
+                                                                  <div>
+                                                                        <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button>
+                                                                       <button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button>
+                                                                  </div>
+                                                              </td>
+                                                                    <td class="w-25">${product.id}</td>
+                                                                    <td class="w-100">${product.description}</td>
+                                                            </tr>
+                                                        `;
         });
 
         document.getElementById("register-list").innerHTML = html;
