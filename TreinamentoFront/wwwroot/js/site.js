@@ -1,8 +1,75 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
+var arrayItens = [
+    {
+        descricao: "des 2",
+        ordem: 2,
+        tipo: "3 - Multipla escolha",
+        tipo_data: [
+            "res 1",
+            "res 2",
+            "res 3"
+        ],
+        respostas_invalidam: [
+            "res 1"
+        ]
+    }
+];
+
+// Get the container element where you want to display the data
+const dataContainer = document.getElementById('itens-list');
+
+
+function updateContent() {
+    // Map the array and generate HTML content
+    const htmlContent = arrayItens.map((item, index) => `<tr class="itens-container" ${index % 2 === 0 ? `style='background: #808080;'` : null}>
+      <td>${item.ordem}</td>
+      <td>${item.descricao}</td>
+      <td>${item.tipo[0]}</td>
+      ${typeof item.tipo_data === "string"
+            ? `<td>${item.tipo_data}</td>`
+            : (typeof item.tipo_data === "object"
+                ? `<td>${item.tipo_data.name || item.tipo_data.join(', ')}</td>`
+                : `<td>Vazio 1</td>`)}
+<td>${item.respostas_invalidam.length > 0 ? item.respostas_invalidam.join(", ") : 'Vazio'}</td>
+    </tr > `).join('');
+
+    // Set the generated HTML content inside the container
+    dataContainer.innerHTML = htmlContent;
+}
+
+function itemLogic(array, newObject) {
+    const ordemExists = array.some(obj => obj.ordem === newObject.ordem);
+    if (ordemExists) {
+        array.map((obj, i) => {
+            console.log(obj.ordem >= newObject.ordem ? obj.ordem : null)
+            if (obj.ordem >= newObject.ordem) {
+                array[i].ordem = obj.ordem + 1
+            }
+        });
+        array.push(newObject);
+
+    } else {
+        array.push(newObject);
+    }
+    const formatArray = array.sort((a, b) => a.ordem - b.ordem);
+    updateContent()
+    return formatArray;
+}
+
+updateContent()
+// Usage example:
+
+
+
 
 // Write your JavaScript code.
 $(document).ready(function () {
+    const filename = document.getElementById('fileName');
+    var a = document.getElementById("myDropdown");
+    var dataInputFile = document.getElementById("data-image");
+    var dataInput = document.getElementById("data-input");
+    var dataInputUnique = document.getElementById("data-input-unique");
     var addedMainItems = []; // Array to store the added items | general itens
     var addedItems = []; // Array to store the added items | multiples responses inside item
     var addedInvalidReponses = []; // Array to store the added items | multiples responses inside item
@@ -10,8 +77,8 @@ $(document).ready(function () {
 
     $(document).on("click", "#addItens", function () {
         event.preventDefault(); // Prevent default form submission
-        var text = `    
-       `
+        var text = `
+    `
         if (text.trim() !== "") {
             addedMainItems.push(text); // Add the item to the array
             var listItem = $(text).addClass("main-item").appendTo("#modal-itens");
@@ -26,11 +93,12 @@ $(document).ready(function () {
             var text = $(this).val();
             if (text.trim() !== "") {
                 addedItems.push(text); // Add the item to the array
-                var listItem = $(`<div>`).addClass("item-container deleteBtn").appendTo("#itemList");
+                var listItem = $(`<div> `).addClass("item-container deleteBtn").appendTo("#itemList");
                 $("<div>").addClass("item").text(text).attr("data-text", text).appendTo(listItem);
                 $("<button>").addClass("deleteBtn").text("x").appendTo(listItem);
                 $(this).val(""); // Clear the input field
             }
+            document.getElementById("textInput").value = ""
         }
     });
 
@@ -39,7 +107,6 @@ $(document).ready(function () {
             event.preventDefault(); // Prevent default form submission
             var text = $(this).val().trim();
 
-
             // Check if an item with the same ID already exists
             var existingItem = $("#" + addedItem);
             existingItem.remove();
@@ -47,7 +114,7 @@ $(document).ready(function () {
             var listItem = $("<div>").attr("id", text).addClass("item-container deleteBtn").appendTo("#itemList");
             $("<div>").addClass("item").text(text).attr("data-text", text).appendTo(listItem);
             $("<button>").addClass("deleteBtn").text("x").appendTo(listItem);
-
+            document.getElementById("textInputUnique").value = ""
         }
     });
 
@@ -57,31 +124,14 @@ $(document).ready(function () {
             var text = $(this).val();
             if (text.trim() !== "") {
                 addedInvalidReponses.push(text); // Add the item to the array
-                var listItem = $(`<div>`).addClass("item-container deleteBtn").appendTo("#itemListInvalidResponses");
+                var listItem = $(`<div> `).addClass("item-container deleteBtn").appendTo("#itemListInvalidResponses");
                 $("<div>").addClass("item").text(text).attr("data-text", text).appendTo(listItem);
                 $("<button>").addClass("deleteBtnInvalidReponses").text("x").appendTo(listItem);
                 $(this).val(""); // Clear the input field
             }
+            document.getElementById("textInputInvalidReponses").value = ""
         }
     });
-
-    // ---
-
-    // Get the container element where you want to display the data
-    const dataContainer = document.getElementById('itens-list');
-
-
-    function updateContent() {
-        conso
-        // Map the array and generate HTML content
-        const htmlContent = addedInvalidReponses.map(item => `<p>${item}</p>`).join('');
-
-        // Set the generated HTML content inside the container
-        dataContainer.innerHTML = htmlContent;
-    }
-
-
-    // ---
 
 
     $(document).on("click", ".deleteBtn", function () {
@@ -114,22 +164,43 @@ $(document).ready(function () {
 
     $(document).on("click", "#addItem", function () {
         const descricao = document.getElementById('descricao-item-input').value;
-        const ordem = document.getElementById('ordem-item-input').value;
+        const ordem = parseInt(document.getElementById('ordem-item-input').value);
         var a = document.getElementById("myDropdown").value;
         const dataItem = {
             descricao,
             ordem,
             tipo: a,
-            tipo_data: addedItem ? addedItem : addedItems,
+            tipo_data: addedItems.length > 0 ? addedItems : addedItem,
             respostas_invalidam: addedInvalidReponses
         }
-
         console.log(dataItem)
+        document.getElementById('descricao-item-input').value = ''
+        document.getElementById('ordem-item-input').value = ''
+        document.getElementById("myDropdown").value = ''
+        addedInvalidReponses = []
+        addedItem = []
+        addedItems = []
+        const itemListInvalidResponses = document.getElementById('itemListInvalidResponses');
+        itemListInvalidResponses.innerHTML = '';
+        const itemList = document.getElementById('itemList');
+        itemList.innerHTML = '';
+        dataInput.classList.add("hide");
+        dataInputFile.classList.add("hide-3")
+        dataInputUnique.classList.add("hide-2");
+
+        itemLogic(arrayItens, dataItem);
+
+        console.log(arrayItens)
     });
 
-    $("#imageInput").on("change", function () {
+
+    $("#imageInput").on("change", function (event) {
         var fileName = $(this).val().split("\\").pop();
+
         $("#fileName").text(fileName);
+        addedItem = event.target.files[0];
+        // Clear the input value
+        event.target.files[0] = {}
     });
 
     $("form").submit(function () {
@@ -138,54 +209,43 @@ $(document).ready(function () {
         // ...
     });
 
-    function showInputFile() {
-        var existingItem = $("#data-image");
-        existingItem.remove();
-
-        var htmlString = '<div id="data-image" class="hide-3">' +
-            '<div class="image-upload hide-3">' +
-            '<input type="file" id="imageInput" accept="image/*" />' +
-            '<label for="imageInput">' +
-            '<i class="fas fa-upload"></i> Adicionar imagem' +
-            '</label>' +
-            '</div>' +
-            '<div id="fileName" class="document-name">Nenhum arquivo selecionado</div>' +
-            '</div>';
-
-        $('#itemList').append(htmlString); // replace 'container' with the ID or selector of the container element where you want to add the HTML
-
-    }
 
     function removeInputFile() {
         var existingItem = $("#data-image");
         existingItem.remove();
     }
 
-    var a = document.getElementById("myDropdown");
-    var dataInput = document.getElementById("data-input");
-    var dataInputUnique = document.getElementById("data-input-unique");
     a.addEventListener('change', function () {
         switch (this.value[0]) {
+            case '1':
+                dataInputFile.classList.remove("hide-3")
+                dataInput.classList.add("hide")
+                dataInputUnique.classList.add("hide-2");
+                filename.innerHTML = 'Nenhum arquivo selecionado';
+                break;
             case '3':
+                dataInputFile.classList.add("hide-3")
                 dataInput.classList.remove("hide");
-                removeInputFile()
                 dataInputUnique.classList.add("hide-2")
+                filename.innerHTML = 'Nenhum arquivo selecionado';
                 break;
             case '5':
-                showInputFile()
+                dataInputFile.classList.remove("hide-3")
                 dataInput.classList.add("hide")
                 dataInputUnique.classList.add("hide-2");
+                filename.innerHTML = 'Nenhum arquivo selecionado';
                 break;
             case '6':
-                removeInputFile()
-                dataInput.classList.add("hide")
                 dataInputUnique.classList.remove("hide-2");
+                dataInputFile.classList.add("hide-3")
+                dataInput.classList.add("hide")
+                filename.innerHTML = 'Nenhum arquivo selecionado';
                 break;
-
             default:
                 dataInput.classList.add("hide");
-                removeInputFile()
+                dataInputFile.classList.add("hide-3")
                 dataInputUnique.classList.add("hide-2");
+                filename.innerHTML = 'Nenhum arquivo selecionado';
 
                 break;
         }
