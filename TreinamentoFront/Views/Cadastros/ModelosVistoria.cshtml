@@ -4,7 +4,16 @@
 }
 @model ItensOptions;
 
+<h1>@ViewBag.Message</h1>
+<form asp-controller="cadastros" asp-action="ModelosVistoria" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="Username" />
 
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="Password" />
+
+    <button type="submit">Login</button>
+</form>
 
 
 <div class="container container-filters p-5">
@@ -52,8 +61,8 @@
 <!-- Modal -->
 <div class="bs-example">
     <div id="myModal" class="modal fade" tabindex="-1">
-        <form>
-            <div class="modal-dialog">
+        <form asp-controller="auth" asp-action="login" method="post">
+            <div class="w-100 modal-dialog">
                 <div class="modal-content">
 
                     <div class="modal-header">
@@ -69,7 +78,7 @@
                     <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
                         <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
                             <input id="descricao-item-input" type="text" class="form-control" placeholder="Inserir descricao" aria-label="Item-descricao" aria-describedby="basic-addon1">
-                            <input id="ordem-item-input" type="text" class="form-control" placeholder="Inserir ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                            <input id="ordem-item-input" type="number" class="form-control" placeholder="Inserir ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
                             @Html.DropDownList("SelectedItems", new SelectList(typesList), "Selecionar tipo do item", new { id = "myDropdown", @class = "custom-dropdown"})
                             <div id="data-input" class="hide">
                                 <input type="text" class="form-control" id="textInput" placeholder="Inserir multiplos dados" />
@@ -78,8 +87,17 @@
                                 <input type="text" class="form-control" id="textInputUnique" placeholder="Inserir dado unico" />
                             </div>
 
-
                             <div id="itemList" class="d-flex flex-column"></div>
+
+                            <div id="data-image" class="hide-3 image-input">
+                                <div class="image-upload">
+                                    <input type="file" id="imageInput" accept="image/*" />
+                                    <label for="imageInput">
+                                        <i class="fas fa-upload"></i> Adicionar imagem
+                                    </label>
+                                </div>
+                                <div id="fileName" class="document-name">Nenhum arquivo selecionado</div>
+                            </div>
 
 
                             <div id="data-input-invalid-responses">
@@ -98,14 +116,14 @@
                                             <th scope="col">Ordem</th>
                                             <th scope="col">Descricao</th>
                                             <th scope="col">Tipo</th>
+                                            <th scope="col">Arquivo/dados</th>
                                             <th scope="col">Respostas_invalidam</th>
-                                            <th scope="col">Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody id="itens-list"></tbody>
                                 </table>
                             </div>
-                           
+
 
                         </div>
 
@@ -124,7 +142,7 @@
     // Open modal on button click
     $("#create-vistoria-btn").click(function () {
         $("#myModal").modal('show);
-                                     });
+                                                     });
 
 
     // Close modal on button click
@@ -149,13 +167,13 @@
 
         mockProducts.forEach(function (product) {
             html += `
-                                        <tr>
-                                            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
-                                            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
-                                            <th>${product.id}</th>
-                                            <td>${product.description}</td>
-                                        </tr>
-                                    `;
+                                                        <tr>
+                                                            <th class="fit-content"><button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button></th>
+                                                            <th class="fit-content"><button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button></th>
+                                                            <th>${product.id}</th>
+                                                            <td>${product.description}</td>
+                                                        </tr>
+                                                    `;
         });
 
         document.getElementById("register-list").innerHTML = html;
