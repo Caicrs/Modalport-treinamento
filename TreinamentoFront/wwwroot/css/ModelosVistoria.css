@@ -1,4 +1,10 @@
-﻿.custom-dropdown {
+﻿.modal-content {
+    width: 100px;
+    background: red;
+}
+
+
+.custom-dropdown {
     background-color: transparent;
     padding: 10px;
     font-size: 12px;
@@ -20,10 +26,6 @@
     color: white;
 }
 
-}
-
-.hide, .hide-2{
-    display: none;
 }
 
 .deleteBtn, .deleteBtnInvalidReponses {
@@ -57,17 +59,17 @@
 
 }
 
-    #data-image{
-        display:flex;
-        align-items:center;
-        gap:12px;
-    }
+.image-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-.document-name{
-    width:100%;
-    text-align:right;
-    color:white;
-    font-size:12px;
+.document-name {
+    width: 100%;
+    text-align: right;
+    color: white;
+    font-size: 12px;
 }
 
 .table-container {
@@ -89,10 +91,9 @@
     }
 
     .image-upload label {
-
         display: inline-block;
         padding: 10px 20px;
-        border:1px solid #ebebeb;
+        border: 1px solid #ebebeb;
         color: white;
         border-radius: 4px;
         cursor: pointer;
@@ -105,3 +106,43 @@
         .image-upload label i {
             margin-right: 5px;
         }
+
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #383838 #ffffff;
+}
+
+    /* Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 2px;
+        height: 5px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        height: 2px;
+        background-color: #b0b0b0;
+        border-radius: 10px;
+        border: 0px solid #ffffff;
+    }
+
+.itens-container {
+    color: white;
+    width: 25%;
+    > td
+
+{
+    white-space: nowrap;
+}
+}
+
+
+.hide, .hide-2, .hide-3 {
+    display: none;
+}
