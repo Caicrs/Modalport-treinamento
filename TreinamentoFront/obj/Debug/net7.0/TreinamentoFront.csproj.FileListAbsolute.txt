@@ -21,9 +21,7 @@ C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\scopedcss\bundle\TreinamentoFront.styles.css
-C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\scopedcss\projectbundle\TreinamentoFront.bundle.scp.css
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\TreinamentoFront.dll
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\refint\TreinamentoFront.dll
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\TreinamentoFront.pdb
@@ -368,3 +366,5 @@ C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\bin
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\bin\Debug\net7.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\bin\Debug\net7.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Lord\Documents\ModalPort\projetos\TreinamentoFront\TreinamentoFront\obj\Debug\net7.0\scopedcss\projectbundle\TreinamentoFront.bundle.scp.css
