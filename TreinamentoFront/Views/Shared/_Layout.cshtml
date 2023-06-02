@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,34 +8,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ModelosVistoria.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/TreinamentoFront.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TreinamentoFront</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Menu -->
+            <div id="mySidenav" class="sidenav">
+                <img alt="Logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpSpedRxeJkNptg59vTIFcr2ChXdLOsi0r1Wpx2CZuGjfhA1W5qC1azXQXWezRCl7ShCs" class="logo" />
+                
+                <div class="sidenav-item">
+                    <a href="#">Cadastros</a>
+                </div>
+                <div class="sidenav-item">
+                    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">operacional</a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            1. Item
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="sidenav-item">
+                    <a href="#">operacional</a>
+                </div>
+              
+            </div>
+
+            <div id="main">
+                <!-- Use any element to open the sidenav -->
+                <div id="menu-icon" onclick="openNav()">&#9776;</div>
+                <!-- Content -->
+                <div class="w-100">
+                    @RenderBody()
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
@@ -45,6 +55,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/navbar.js" asp-append-version="true"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
