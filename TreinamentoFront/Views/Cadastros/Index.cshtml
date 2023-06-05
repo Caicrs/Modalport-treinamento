@@ -49,14 +49,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal Title</h5>
+                    <h5 class="modal-title">Adicionar descrição</h5>
                     <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>This is a simple Bootstrap modal. Click the "Close button", "cross icon" or "dark gray area" to close or hide the modal.</p>
+
+                    <div class="col input-group">
+                        <input type="text" placeholder="Insira uma descrição" class="form-control w-100" aria-label="Text input with segmented dropdown button">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary close-btn" data-dismiss="modal">Close Modal</button>
+                    <button type="button" class="btn btn-primary close-btn" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn btn-danger close-btn" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -65,16 +70,16 @@
 
 
 <script>
-        // Open modal on button click
+    // Open modal on button click
     $("#create-vistoria-btn").click(function () {
-            $("#myModal").modal('show);
-        });
+        $("#myModal").modal('show);
+            });
 
 
-        // Close modal on button click
-        $(".close-btn").click(function () {
-            $("#myModal").modal('hide');
-        });
+    // Close modal on button click
+    $(".close-btn").click(function () {
+        $("#myModal").modal('hide');
+    });
 </script>
 
 
@@ -92,17 +97,17 @@
 
         mockProducts.forEach(function (product) {
             html += `
-                                                            <tr>
-                                                                  <td class="w-25">
-                                                                  <div>
-                                                                        <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button>
-                                                                       <button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button>
-                                                                  </div>
-                                                              </td>
-                                                                    <td class="w-25">${product.id}</td>
-                                                                    <td class="w-100">${product.description}</td>
-                                                            </tr>
-                                                        `;
+                                                                <tr>
+                                                                      <td class="w-25">
+                                                                      <div>
+                                                                            <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button>
+                                                                           <button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button>
+                                                                      </div>
+                                                                  </td>
+                                                                        <td class="w-25">${product.id}</td>
+                                                                        <td class="w-100">${product.description}</td>
+                                                                </tr>
+                                                            `;
         });
 
         document.getElementById("register-list").innerHTML = html;
