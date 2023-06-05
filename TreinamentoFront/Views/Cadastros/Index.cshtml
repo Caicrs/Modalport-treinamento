@@ -7,7 +7,7 @@
     <div class="column" style="display:flex;flex-direction:column;gap:22px">
         <div class="col">
             <div class="col input-group">
-                <input type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
+                <input id="search-input-cadastro" type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
                 <div class="input-group-append">
                     <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
                 </div>
@@ -21,6 +21,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="border-radius">
     <table class="table table-bordered table-striped">
@@ -70,51 +71,18 @@
 
 
 <script>
-    // Open modal on button click
-    $("#create-vistoria-btn").click(function () {
-        $("#myModal").modal('show);
-            });
+    const element = document.getElementById('#myModal'); // Replace 'elementId' with the actual ID of the element you want to modify
+
+    document.getElementById("#create-vistoria-btn").addEventListener("click", element.classList.add('show'))
 
 
-    // Close modal on button click
-    $(".close-btn").click(function () {
-        $("#myModal").modal('hide');
-    });
+    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
+
 </script>
 
 
 <script>
 
-    function getMockData() {
-
-        var mockProducts = [
-            { id: 1, description: "C.K.G" },
-            { id: 2, description: "C.K.G" },
-            // Add more mock products as needed
-        ];
-
-        var html = "";
-
-        mockProducts.forEach(function (product) {
-            html += `
-                                                                <tr>
-                                                                      <td class="w-25">
-                                                                      <div>
-                                                                            <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button>
-                                                                           <button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button>
-                                                                      </div>
-                                                                  </td>
-                                                                        <td class="w-25">${product.id}</td>
-                                                                        <td class="w-100">${product.description}</td>
-                                                                </tr>
-                                                            `;
-        });
-
-        document.getElementById("register-list").innerHTML = html;
-    }
-
-    // Call the function to fetch and map the data
-    getMockData();
 
     function handleEdit(itemId) {
         // Handle the button click and the passed ID
@@ -133,5 +101,7 @@
     }
 
 </script>
+
+<script src="~/js/cadastro-integration.js" asp-append-version="true"></script>
 
 
