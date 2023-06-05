@@ -65,16 +65,13 @@
 
 
 <script>
-        // Open modal on button click
-    $("#create-vistoria-btn").click(function () {
-            $("#myModal").modal('show);
-        });
+    const element = document.getElementById('#myModal'); // Replace 'elementId' with the actual ID of the element you want to modify
+
+    document.getElementById("#create-vistoria-btn").addEventListener("click", element.classList.add('show'))
 
 
-        // Close modal on button click
-        $(".close-btn").click(function () {
-            $("#myModal").modal('hide');
-        });
+    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
+
 </script>
 
 
