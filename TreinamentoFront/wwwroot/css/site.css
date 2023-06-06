@@ -65,7 +65,6 @@ body {
 
 /* When you mouse over the navigation links, change their color */
 .sidenav div:hover {
-
 }
 
 /* Position and style the close button (top right corner) */
@@ -101,6 +100,35 @@ body {
     cursor: pointer;
 }
 
-.collapse{
-    opacity:1;
+.collapse {
+    opacity: 1;
+}
+
+.hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background: #e9eaeb;
+}
+
+    .hover:hover {
+        background: white;
+        border: none;
+        -webkit-box-shadow: 10px 10px 61px -22px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 61px -22px rgba(0,0,0,0.75);
+        box-shadow: 10px 10px 61px -22px rgba(0,0,0,0.75);
+    }
+
+
+.process-description {
+    max-width: 200px;
+    overflow: hidden; /* Hide any content that exceeds the container */
+    white-space: nowrap; /* Prevent line breaks within the text */
+    text-overflow: ellipsis;
+}
+
+.process-itens {
+    max-width: 200px;
+    overflow: hidden; /* Hide any content that exceeds the container */
+    white-space: nowrap; /* Prevent line breaks within the text */
+    text-overflow: ellipsis;
 }
