@@ -27,6 +27,10 @@ namespace TreinamentoFront.Controllers
         {
             return View();
         }
+        public IActionResult Processos()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
