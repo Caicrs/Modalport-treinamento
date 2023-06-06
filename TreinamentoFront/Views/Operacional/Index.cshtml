@@ -3,38 +3,18 @@
 }
 
 
-<div class="container container-filters p-5">
-    <div class="column" style="display:flex;flex-direction:column;gap:22px">
-        <div class="col">
-            <div class="col input-group">
-                <input type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
-                </div>
-            </div>
-        </div>
 
-        <div class="col" style="display:flex;justify-content:flex-end">
-            <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                + Criar vistoria
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="border-radius">
-    <table class="table table-bordered table-striped">
+<div class="border-radius p-5">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col w-25">ACOES</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
         </thead>
-        <tbody id="register-list"></tbody>
+        <tbody id="operacional-list"></tbody>
         <thead>
             <tr>
-                <th scope="col w-25">ACOES</th>
                 <th scope="col">ID</th>
                 <th scope="col">DESCRICAO</th>
             </tr>
@@ -65,47 +45,11 @@
 
 
 <script>
-    const element = document.getElementById('#myModal'); // Replace 'elementId' with the actual ID of the element you want to modify
-
-    document.getElementById("#create-vistoria-btn").addEventListener("click", element.classList.add('show'))
 
 
-    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
-
-</script>
-
-
-<script>
-
-    function getMockData() {
-
-        var mockProducts = [
-            { id: 1, description: "C.K.G" },
-            { id: 2, description: "C.K.G" },
-            // Add more mock products as needed
-        ];
-
-        var html = "";
-        mockProducts.forEach(function (product) {
-            html += `
-                                                            <tr>
-                                                                  <td class="w-25">
-                                                                  <div>
-                                                                        <button onclick="handleRemove(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i> Deletar</button>
-                                                                       <button onclick="handleEdit(${product.id})" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</button>
-                                                                  </div>
-                                                              </td>
-                                                                    <td class="w-25">${product.id}</td>
-                                                                    <td class="w-100">${product.description}</td>
-                                                            </tr>
-                                                        `;
-        });
-
-        document.getElementById("register-list").innerHTML = html;
+    function redirectToPage(url) {
+        window.location.href = url;
     }
-
-    // Call the function to fetch and map the data
-    getMockData();
 
     function handleEdit(itemId) {
         // Handle the button click and the passed ID
@@ -125,4 +69,6 @@
 
 </script>
 
+
+<script src="~/js/operacional-realizar-vistoria.js" asp-append-version="true"></script>
 
