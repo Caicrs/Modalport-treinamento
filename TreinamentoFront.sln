@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreinamentoFront", "TreinamentoFront\TreinamentoFront.csproj", "{A622EED7-DF66-42E0-B8AC-7EFCD58D7B30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIModallportV5", "..\..\APIModallportV5\APIModallportV5\APIModallportV5.csproj", "{E1D5318C-D616-4C0A-82E7-364C0A5EB7F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIModallportV5", "..\..\APIModallportV5\APIModallportV5\APIModallportV5.csproj", "{272937E7-9519-4C52-A75F-4D2D663EC799}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A622EED7-DF66-42E0-B8AC-7EFCD58D7B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A622EED7-DF66-42E0-B8AC-7EFCD58D7B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A622EED7-DF66-42E0-B8AC-7EFCD58D7B30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1D5318C-D616-4C0A-82E7-364C0A5EB7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1D5318C-D616-4C0A-82E7-364C0A5EB7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1D5318C-D616-4C0A-82E7-364C0A5EB7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1D5318C-D616-4C0A-82E7-364C0A5EB7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272937E7-9519-4C52-A75F-4D2D663EC799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272937E7-9519-4C52-A75F-4D2D663EC799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272937E7-9519-4C52-A75F-4D2D663EC799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272937E7-9519-4C52-A75F-4D2D663EC799}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

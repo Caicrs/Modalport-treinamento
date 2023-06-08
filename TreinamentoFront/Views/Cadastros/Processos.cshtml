@@ -51,7 +51,7 @@
 
                         <div class="modal-header">
                             <h5 class="modal-title">Inserir Processo</h5>
-                            <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close close-btn" data-dismiss="modal" id="close-btn">&times;</button>
                         </div>
                         <div class="modal-body">
                             <input id="descricao" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="modal-footer">
                             <button id="buttonCreateTeste" type="submit" class="btn btn-primary" data-processo-id="">Salvar</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-btn">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -193,6 +193,10 @@
     });
 
     $('.close-btn').click(function () {
-        element.classList.remove('show');
+        $('#myModal').modal('hide');
+    });
+
+    $('.btn-secondary').click(function () {
+        $('#myModal').modal('hide');
     });
 </script>

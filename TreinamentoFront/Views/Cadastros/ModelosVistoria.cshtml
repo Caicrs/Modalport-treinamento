@@ -1,160 +1,344 @@
 ﻿@{
     ViewData["Title"] = "Modelos de vistoria";
-    List<string> typesList = ViewBag.ItensOptions;
-}
-@model ItensOptions;
+    List<dynamic> typesList = new List<dynamic>
+{
+    new { Numero = 1, Descricao = "Foto" },
+    new { Numero = 2, Descricao = "Texto" },
+    new { Numero = 3, Descricao = "Numérico" },
+    new { Numero = 4, Descricao = "Múltipla Escolha" },
+    new { Numero = 5, Descricao = "Única Escolha" },
+    new { Numero = 6, Descricao = "Assinatura" },
+};
 
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <h1>@ViewBag.Message</h1>
 
-<div class="container container-filters p-5">
-    <div class="column" style="display:flex;flex-direction:column;gap:22px">
-        <div class="col">
-            <div class="col input-group">
-                <input id="search-input-modelos" type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
+<div style="width:60%">
+    <div style="width: 100%;">
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+            <div style="margin: 0;">
+                <div class="input-group" style="margin: 0;">
+                    <input id="search-input-modelos" type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col" style="display:flex;justify-content:flex-end">
-            <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                + Criar vistoria
-            </button>
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal" style="margin: 0;">
+                    + Criar Vistoria
+                </button>
+            </div>
+
         </div>
     </div>
-</div>
-
-<div class="border-radius">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th scope="col w-25">ACOES</th>
-                <th scope="col">ID</th>
-                <th scope="col">DESCRICAO</th>
-            </tr>
-        </thead>
-        <tbody id="modelos-list"></tbody>
-        <thead>
-            <tr>
-                <th scope="col w-25">ACOES</th>
-                <th scope="col">ID</th>
-                <th scope="col">DESCRICAO</th>
-            </tr>
-        </thead>
-    </table>
-</div>
 
 
-<!-- Modal -->
-<div class="bs-example">
-    <div id="myModal" class="modal fade" tabindex="-1">
-        <form asp-controller="auth" asp-action="login" method="post">
-            <div class="w-100 modal-dialog">
-                <div class="modal-content">
+    <div class="border-radius" style="display:flex;flex-direction:column;width:100%">
+        <table class="table table-bordered table-striped table-auto-width">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:10%">AÇÕES</th>
+                    <th scope="col">DESCRIÇÃO</th>
+                    <th scope="col">PROCESSO</th>
+                    <th scope="col">CODVISTORIA</th>
+                    <th scope="col">DATA DE CADASTRO</th>
+                </tr>
+            </thead>
+            <tbody id="modelos-list" style="width:100%">
+            </tbody>
+        </table>
+    </div>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inserir modelo de vistoria</h5>
-                        <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <input id="processo-input" type="text" class="form-control" placeholder="Inserir processo" aria-label="Processo" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" class="form-control" placeholder="Inserir descricao" aria-label="Descricao" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
-                        <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
-                            <input id="descricao-item-input" type="text" class="form-control" placeholder="Inserir descricao" aria-label="Item-descricao" aria-describedby="basic-addon1">
-                            <input id="ordem-item-input" type="number" class="form-control" placeholder="Inserir ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
-                            @Html.DropDownList("SelectedItems", new SelectList(typesList), "Selecionar tipo do item", new { id = "myDropdown", @class = "custom-dropdown"})
-                            <div id="data-input" class="hide">
-                                <input type="text" class="form-control" id="textInput" placeholder="Inserir multiplos dados" />
-                            </div>
-                            <div id="data-input-unique" class="hide-2">
-                                <input type="text" class="form-control" id="textInputUnique" placeholder="Inserir dado unico" />
-                            </div>
+    <!-- Modal -->
+    <div class="bs-example">
+        <div id="myModal" class="modal fade" tabindex="-1">
+            <form id="vistoria-form">
+                <div class="w-100 modal-dialog">
+                    <div class="modal-content">
 
-                            <div id="itemList" class="d-flex flex-column"></div>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Inserir modelo de vistoria</h5>
+                            <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <input id="descricao" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="modal-body">
+                            <input id="processo" type="text" class="form-control" placeholder="Inserir Processo" aria-label="Processo" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="modal-body">
+                            <input id="codvistoria" type="text" class="form-control" placeholder="Inserir CodVistoria" aria-label="CodVistoria" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
 
-                            <div id="data-image" class="hide-3 image-input">
-                                <div class="image-upload">
-                                    <input type="file" id="imageInput" accept="image/*" />
-                                    <label for="imageInput">
-                                        <i class="fas fa-upload"></i> Adicionar imagem
-                                    </label>
+
+                            <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
+                                <h5 style="color:white">Inserir Item</h5>
+                                <input id="descricao-item" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                                <input id="ordem" type="number" class="form-control" placeholder="Inserir Ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                                <select id="myDropdown" class="custom-dropdown">
+                                    <option value="">Selecionar tipo do item</option>
+                                    @foreach (var item in typesList)
+                                    {
+                                        <option value="@item.Numero">@item.Numero - @item.Descricao</option>
+                                    }
+                                </select>
+
+                                <div id="data-input" class="hide">
+                                    <input id="opcao-item" type="text" class="form-control" placeholder="Descrição da Opção" style="margin-bottom:10px"/>
+                                    <button type="button" class="btn btn-light" id="addOption" style="font-size:12px">Adicionar Opção</button>
+                                    <div id="optionsList" class="d-flex flex-column"></div>
                                 </div>
-                                <div id="fileName" class="document-name">Nenhum arquivo selecionado</div>
-                            </div>
 
+                                <div id="itemList" class="d-flex flex-column"></div>
 
-                            <div id="data-input-invalid-responses">
-                                <input type="text" class="form-control" id="textInputInvalidReponses" placeholder="Inserir respostas que invalidam" />
-                            </div>
-                            <div id="itemListInvalidResponses" class="d-flex flex-column"></div>
-                            <div><button id="addItem" type="button" class="btn btn-light test">Adicionar item</button></div>
-                        </div>
-
-                        <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
-
-                            <div class="table-container">
-                                <table class="table">
-                                    <thead>
-                                        <tr style="color: white">
-                                            <th scope="col">Ordem</th>
-                                            <th scope="col">Descricao</th>
-                                            <th scope="col">Tipo</th>
-                                            <th scope="col">Arquivo/dados</th>
-                                            <th scope="col">Respostas_invalidam</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="itens-list"></tbody>
-                                </table>
+                                <div id="data-input-invalid-responses">
+                                    <input id="resposta-item" type="text" class="form-control" placeholder="Descrição da Resposta" style="margin-bottom:10px" />
+                                    <button type="button" class="btn btn-light" id="addResposta" style="font-size:12px">Adicionar Resposta</button>
+                                </div>
+                                <div id="itemListInvalidResponses" class="d-flex flex-column"></div>
+                                <div><button id="addItem" type="button" class="btn btn-light test">Adicionar Item</button></div>
                             </div>
 
 
                         </div>
 
+                        <div class="modal-footer">
+                            <button id="buttonCreateTeste" type="submit" class="btn btn-primary" data-vistoria-id="">Salvar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-btn">Cancelar</button>
+                        </div>
                     </div>
-
                 </div>
-
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
-
 <script>
-    const element = document.getElementById('#myModal'); // Replace 'elementId' with the actual ID of the element you want to modify
+    const itens = []
+    let opcoes = []
+    let respostas = []
 
-    document.getElementById("#create-vistoria-btn").addEventListener("click", element.classList.add('show'))
+    $('#addItem').on('click', function () {
+        const descricaoItem = $('#descricao-item').val();
+        const ordem = parseInt($('#ordem').val());
+        const tipo = parseInt($('#myDropdown').val());
+        const item = {
+            descricao: descricaoItem,
+            ordem,
+            tipo,
+            opcoes,
+            respostas
+        }
+
+        itens.push(item)
+        opcoes = []
+        respostas = []
+        console.log(itens)
+    })
+
+    $('#addOption').on('click', function () {
+        const opcao = $('#opcao-item').val();
+
+        opcoes.push(opcao)
+        console.log(opcoes)
+    })
+
+    $('#addResposta').on('click', function () {
+        const resposta = $('#resposta-item').val();
+
+        respostas.push(resposta)
+        console.log(respostas)
+    })
+
+    $('#myDropdown').change(function () {
+        var selectedOption = $(this).val();
+        var numericValue = parseInt(selectedOption.split(' ')[0]);
+
+        // Verifica se o tipo é 4 (Múltipla Escolha) ou 5 (Única Escolha)
+        if (numericValue === 4 || numericValue === 5) {
+            $('#data-input').removeClass('hide');
+        } else {
+            $('#data-input').addClass('hide');
+        }
+    });
+
+    $(function () {
+        $("#vistoria-form").submit(function () {
+            event.preventDefault();
+            
+            let url = 'https://localhost:44350/api/vistorias';
+            const descricao = $('#descricao').val();
+            const processo = $('#processo').val();
+            const codvistoria = $('#codvistoria').val();
+            
+            const data = {
+                descricao,
+                processo,
+                codvistoria
+            };
+            
+
+            const vistoriaId = $('#buttonCreateTeste').data('vistoria-id');
+            if (vistoriaId) {
+                url += '/' + vistoriaId;
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        console.log(result);
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error('Erro:', error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        itens.forEach(function (item) {
+                            $.ajax({
+                                url: `https://localhost:44350/api/itens?idVistoria=${result.idVistoria}`,
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify(item),
+                                success: function (result) {
+                                    item.opcoes.forEach(function (opcao) {
+                                        $.ajax({
+                                            url: `https://localhost:44350/api/opcoes?idItem=${result.idItem}`,
+                                            type: 'POST',
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({opcao}),
+                                            success: function (result) {
+                                                console.log(result)
+                                            },
+                                        })
+                                    })
+
+                                    item.respostas.forEach(function (resposta) {
+                                        $.ajax({
+                                            url: `https://localhost:44350/api/respostas?idItem=${result.idItem}`,
+                                            type: 'POST',
+                                            contentType: 'application/json',
+                                            data: JSON.stringify({resposta}),
+                                            success: function (result) {
+                                                console.log(result)
+                                            },
+                                        })
+                                    })
+                                },
+                            })
+                        })
+                    },
+                    error: function (error) {
+                        console.error('Erro:', error);
+                    }
+                });
+            }
+        })
+
+        $.ajax({
+            url: 'https://localhost:44350/api/vistorias',
+            type: 'GET',
+            success: function (result) {
+                console.log(result);
+                const tbody = $('#modelos-list');
+                tbody.empty();
+                result.forEach(function (vistoria) {
+                    const row = $('<tr /*style="display:flex;justify-content:space-between"*/>');
+
+                    const acoesCell = $('<td style="display:flex;flex-direction:row">');
+                    const editarBtn = $('<button>').addClass('btn btn-primary btn-editar btn-margin').css({ "margin-right": "10px" }).text('Editar');
+                    editarBtn.data('vistoria-id', vistoria.idVistoria.toString());
+                    editarBtn.data('codvistoria', vistoria.codVistoria);
+                    editarBtn.data('descricao', vistoria.descricao);
+                    editarBtn.data('processo', vistoria.processo);
+                    editarBtn.appendTo(acoesCell);
+
+                    const excluirBtn = $('<button>').addClass('btn btn-danger btn-excluir btn-margin').css({ "margin-right": "10px" }).text('Excluir');
+                    excluirBtn.data('vistoria-id', vistoria.idVistoria.toString());
+                    excluirBtn.appendTo(acoesCell);
+
+                    row.append(acoesCell);
+                    row.append($('<td /*style="width:100%"*/>').text(vistoria.descricao));
+                    row.append($('<td /*style="width:100%"*/>').text(vistoria.processo));
+                    row.append($('<td /*style="width:100%"*/>').text(vistoria.codVistoria));
+                    row.append($('<td /*style="width:100%"*/>').text(vistoria.dataDeCadastro));
+
+                    tbody.append(row);
+                });
+            },
+            error: function (error) {
+                console.error('Erro:', error);
+            }
+        });
+    })
 
 
-    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
 
+    $(document).on('click', '.btn-editar', function () {
+        const processoId = $(this).data('vistoria-id');
+        console.log('Editar processo ID:', processoId);
+
+        const codVistoria = $(this).data('codvistoria');
+        const descricao = $(this).data('descricao');
+        const processo = $(this).data('processo');
+
+        $('#codvistoria').val(codVistoria);
+        $('#descricao').val(descricao);
+        $('#processo').val(processo);
+
+        $('#buttonCreateTeste').attr('data-vistoria-id', processoId);
+
+        $('#myModal').modal('show');
+    });
+
+
+
+    $(document).on('click', '.btn-excluir', function () {
+        const vistoriaId = $(this).data('vistoria-id');
+        $.ajax({
+            url: `https://localhost:44350/api/vistorias/${vistoriaId}`,
+            type: 'DELETE',
+            contentType: 'application/json',
+            success: function (result) {
+                console.log(result);
+                location.reload();
+            },
+            error: function (error) {
+                console.error('Erro:', error);
+            }
+        });
+    });
+
+    const element = document.getElementById('myModal');
+
+    $('#create-vistoria-btn').on('click', function () {
+        $('#descricao').val('');
+        $('#processo').val('');
+        $('#codvistoria').val('');
+
+        $('#buttonCreateTeste').removeData('vistoria-id');
+
+        $('#myModal').modal('show');
+    });
+
+    $('.close-btn').click(function () {
+        $('#myModal').modal('hide');
+    });
+
+    $('.btn-secondary').click(function () {
+        $('#myModal').modal('hide');
+    });
 </script>
-
-
-<script>
-
-    function handleEdit(itemId) {
-        // Handle the button click and the passed ID
-        console.log("Button clicked for item with ID: " + itemId);
-
-        // Call another function or perform any desired action with the ID
-        // ...
-    }
-
-    function handleRemove(itemId) {
-        // Handle the button click and the passed ID
-        console.log("Button clicked for item with ID: " + itemId);
-
-        // Call another function or perform any desired action with the ID
-        // ...
-    }
-
-</script>
-
-<script src="~/js/cadastro-modelos-vistoria.js" asp-append-version="true"></script>
 
