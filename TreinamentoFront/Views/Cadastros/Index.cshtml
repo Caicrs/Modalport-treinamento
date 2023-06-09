@@ -16,14 +16,14 @@
 
         <div class="col" style="display:flex;justify-content:flex-end">
             <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                + Criar vistoria
+                + Criar cadastro
             </button>
         </div>
     </div>
 </div>
 
 
-<div class="border-radius">
+<div class="border-radius w-100">
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -69,6 +69,47 @@
     </div>
 </div>
 
+<!-- Modal Delete -->
+<div class="bs-example">
+    <div id="myModalDelete" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deseja realmente deletar esse cadastro ?</h5>
+                    <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-footer">
+                    <button onClick="deleteCadastro()" id="remove-cadastro-description" type="button" class="btn btn-primary close-btn" data-dismiss="modal">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="bs-example">
+    <div id="myModalEdit" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar cadastro</h5>
+                    <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col input-group">
+                        <input id="input-cadastro-new-description" type="text" placeholder="Insira uma descrição" class="form-control w-100" aria-label="Text input with segmented dropdown button">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button onClick="editCadastro()" id="edit-cadastro-description" type="button" class="btn btn-primary close-btn" data-dismiss="modal">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     const element = document.getElementById('#myModal'); // Replace 'elementId' with the actual ID of the element you want to modify
@@ -80,27 +121,26 @@
 
 </script>
 
-
 <script>
+    const element = document.getElementById('#myModalDelete'); // Replace 'elementId' with the actual ID of the element you want to modify
+
+    document.getElementById("#delete-vistoria-btn").addEventListener("click", element.classList.add('show'))
 
 
-    function handleEdit(itemId) {
-        // Handle the button click and the passed ID
-        console.log("Button clicked for item with ID: " + itemId);
-
-        // Call another function or perform any desired action with the ID
-        // ...
-    }
-
-    function handleRemove(itemId) {
-        // Handle the button click and the passed ID
-        console.log("Button clicked for item with ID: " + itemId);
-
-        // Call another function or perform any desired action with the ID
-        // ...
-    }
+    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
 
 </script>
+
+<script>
+    const element = document.getElementById('#myModalEdit'); // Replace 'elementId' with the actual ID of the element you want to modify
+
+    document.getElementById("#edit-vistoria-btn").addEventListener("click", element.classList.add('show'))
+
+
+    document.getElementsByClassName(".close-btn").addEventListener("click", element.classList.add('hide'))
+
+</script>
+
 
 <script src="~/js/cadastro-integration.js" asp-append-version="true"></script>
 
