@@ -15,113 +15,181 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <h1>@ViewBag.Message</h1>
 
-<div style="width:60%">
-    <div style="width: 100%;">
-        <div style="display: flex; flex-direction: column; gap: 22px;">
-            <div style="margin: 0;">
-                <div class="input-group" style="margin: 0;">
-                    <input id="search-input-modelos" type="text" placeholder="Buscar pelo Id ou descricao..." class="form-control" aria-label="Text input with segmented dropdown button">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
-                    </div>
-                </div>
+<div class="d-flex justify-content-between flex-wrap ">
+    <div class="mb-3 mr-3 flex-grow-1">
+        <div class="input-group">
+            <input id="search-input-modelos" type="text" placeholder="Buscar pelo Id ou descrição..." class="form-control" aria-label="Text input with segmented dropdown button">
+            <div class="input-group-append">
+                <button id="search-btn" type="button" class="btn btn-outline-secondary"><i class="fas fa-search"></i> Buscar</button>
             </div>
-
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-                <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal" style="margin: 0;">
-                    + Criar Vistoria
-                </button>
-            </div>
-
         </div>
     </div>
 
+    <div>
+        <button id="create-vistoria-btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+            + Criar Vistoria
+        </button>
+    </div>
+</div>
 
-    <div class="border-radius" style="display:flex;flex-direction:column;width:100%">
+<div class="table-responsive" style="display:flex;justify-content:center;align-items:center">
+    <div class="table-wrapper">
         <table class="table table-bordered table-striped table-auto-width">
             <thead>
                 <tr>
                     <th scope="col" style="width:10%">AÇÕES</th>
+                    <th scope="col">CODVISTORIA</th>
                     <th scope="col">DESCRIÇÃO</th>
                     <th scope="col">PROCESSO</th>
-                    <th scope="col">CODVISTORIA</th>
                     <th scope="col">DATA DE CADASTRO</th>
                 </tr>
             </thead>
-            <tbody id="modelos-list" style="width:100%">
+            <tbody id="modelos-list">
             </tbody>
         </table>
     </div>
-
-    <!-- Modal -->
-    <div class="bs-example">
-        <div id="myModal" class="modal fade" tabindex="-1">
-            <form id="vistoria-form">
-                <div class="w-100 modal-dialog">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <h5 class="modal-title">Inserir modelo de vistoria</h5>
-                            <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <input id="descricao" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="modal-body">
-                            <input id="processo" type="text" class="form-control" placeholder="Inserir Processo" aria-label="Processo" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="modal-body">
-                            <input id="codvistoria" type="text" class="form-control" placeholder="Inserir CodVistoria" aria-label="CodVistoria" aria-describedby="basic-addon1">
-                        </div>
-                        <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
+</div>
 
 
-                            <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
-                                <h5 style="color:white">Inserir Item</h5>
-                                <input id="descricao-item" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Item-descricao" aria-describedby="basic-addon1">
-                                <input id="ordem" type="number" class="form-control" placeholder="Inserir Ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
-                                <select id="myDropdown" class="custom-dropdown">
-                                    <option value="">Selecionar tipo do item</option>
-                                    @foreach (var item in typesList)
-                                    {
-                                        <option value="@item.Numero">@item.Numero - @item.Descricao</option>
-                                    }
-                                </select>
+<!-- Modal -->
+<div class="bs-example">
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <form id="vistoria-form">
+            <div class="w-100 modal-dialog">
+                <div class="modal-content">
 
-                                <div id="data-input" class="hide">
-                                    <input id="opcao-item" type="text" class="form-control" placeholder="Descrição da Opção" style="margin-bottom:10px"/>
-                                    <button type="button" class="btn btn-light" id="addOption" style="font-size:12px">Adicionar Opção</button>
-                                    <div id="optionsList" class="d-flex flex-column"></div>
-                                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Criar Vistoria</h5>
+                        <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="descricao" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body">
+                        <input id="processo" type="number" class="form-control" placeholder="Inserir Processo" aria-label="Processo" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body" style="padding:14px;display:flex;flex-direction:column;gap:12px;">
 
-                                <div id="itemList" class="d-flex flex-column"></div>
 
-                                <div id="data-input-invalid-responses">
-                                    <input id="resposta-item" type="text" class="form-control" placeholder="Descrição da Resposta" style="margin-bottom:10px" />
-                                    <button type="button" class="btn btn-light" id="addResposta" style="font-size:12px">Adicionar Resposta</button>
-                                </div>
-                                <div id="itemListInvalidResponses" class="d-flex flex-column"></div>
-                                <div><button id="addItem" type="button" class="btn btn-light test">Adicionar Item</button></div>
+                        <div style="background:#373737;padding:14px;display:flex;flex-direction:column;gap:12px;border-radius:6px">
+                            <h5 style="color:white">Inserir Item</h5>
+                            <input id="descricao-item" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                            <input id="ordem" type="number" class="form-control" placeholder="Inserir Ordem" aria-label="Item-descricao" aria-describedby="basic-addon1">
+                            <select id="myDropdown" class="custom-dropdown">
+                                <option value="">Selecionar tipo do item</option>
+                                @foreach (var item in typesList)
+                                {
+                                    <option value="@item.Numero">@item.Numero - @item.Descricao</option>
+                                }
+                            </select>
+
+                            <div id="data-input" class="hide">
+                                <input id="opcao-item" type="text" class="form-control" placeholder="Descrição da Opção" style="margin-bottom:10px" />
+                                <button type="button" class="btn btn-light" id="addOption" style="font-size:12px">Adicionar Opção</button>
+                                <div id="optionsList" class="d-flex flex-column"></div>
                             </div>
 
+                            <div id="opcoesCount">
+                            </div>
 
+                            <div id="itemList" class="d-flex flex-column"></div>
+
+                            <div id="data-input-invalid-responses">
+                                <input id="resposta-item" type="text" class="form-control" placeholder="Descrição da Resposta" style="margin-bottom:10px" />
+                                <button type="button" class="btn btn-light" id="addResposta" style="font-size:12px">Adicionar Resposta</button>
+                            </div>
+
+                            <div id="respostasCount">
+                            </div>
+                            <div id="itemListInvalidResponses" class="d-flex flex-column"></div>
+                            <div><button id="addItem" type="button" class="btn btn-light test">Adicionar Item</button></div>
                         </div>
 
-                        <div class="modal-footer">
-                            <button id="buttonCreateTeste" type="submit" class="btn btn-primary" data-vistoria-id="">Salvar</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-btn">Cancelar</button>
+                        <div id="itensCount">
                         </div>
+
+
+                    </div>
+                    <div class="modal-body">
+                        <div id="error-message" style="color: red;"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="buttonCreate" type="submit" class="btn btn-primary" data-vistoria-id="">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-btn">Cancelar</button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
+<div class="bs-example">
+    <div id="myModalEdit" class="modal fade" tabindex="-1">
+        <form id="vistoria-edit-form">
+            <div class="w-100 modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Vistoria</h5>
+                        <button type="button" class="close close-btn" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="descricao-edit" type="text" class="form-control" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body">
+                        <input id="processo-edit" type="text" class="form-control" placeholder="Inserir Processo" aria-label="Processo" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tbody id="itens-list" style="display:flex;flex-direction:column;justify-content:space-between;align-items:center">
+                                <h5>Editar Itens</h5>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <div id="error-message-edit" style="color: red;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="buttonEditVistoria" type="submit" class="btn btn-primary" data-vistoria-id="">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-btn-edit">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .d-flex {
+        width: 85%;
+    }
+
+    .table-wrapper {
+        width: 85%;
+    }
+
+    #create-vistoria-btn {
+        margin-bottom: 10px;
+    }
+
+    @@media (min-width: 1000px) {
+        .table-wrapper {
+            width: 60%;
+        }
+
+        .d-flex {
+            width: 60%;
+        }
+    }
+</style>
+
 <script>
-    const itens = []
+    let itens = []
     let opcoes = []
     let respostas = []
+    let itensEditar = []
+    let vistorias = []
 
     $('#addItem').on('click', function () {
         const descricaoItem = $('#descricao-item').val();
@@ -135,31 +203,97 @@
             respostas
         }
 
-        itens.push(item)
-        opcoes = []
-        respostas = []
+        if ($.trim(descricaoItem).length == 0) {
+            $('#error-message').text('Descrição inválida.');
+        } else if (isNaN(ordem)) {
+            $('#error-message').text('Ordem inválida.');
+        } else if (isNaN(tipo)) {
+            $('#error-message').text('Tipo inválido.');
+        } else {
+            const body = $('#itensCount');
+
+            const existingCount = body.find('p').length;
+
+            if (existingCount > 0) {
+                body.find('p').text(`${itens.length + 1} Itens Cadastrados.`);
+            } else {
+                body.append(`<p style="color:black">${itens.length + 1} Itens Cadastrados.</p>`);
+            }
+
+            itens.push(item)
+            $('#error-message').text('');
+            $('#descricao-item').val('')
+            $('#ordem').val('')
+            $('#myDropdown').val('')
+            $('#opcao-item').val('')
+            $('#resposta-item').val('')
+            $('#opcoesCount').empty();
+            $('#respostasCount').empty();
+        }
         console.log(itens)
     })
 
     $('#addOption').on('click', function () {
         const opcao = $('#opcao-item').val();
+        const selectedOption = $('#myDropdown').val();
+        const numericValue = parseInt(selectedOption.split(' ')[0]);
 
-        opcoes.push(opcao)
-        console.log(opcoes)
-    })
+        if (numericValue === 5 && opcoes.length >= 1) {
+            $('#error-message').text('Você só pode adicionar uma opção para "Única Escolha".');
+            return;
+        }
+
+        if ($.trim(opcao).length == 0) {
+            $('#error-message').text('Opção inválida.');
+        } else {
+            opcoes.push(opcao);
+            const body = $('#opcoesCount');
+
+            const existingCount = body.find('p').length;
+
+            if (existingCount > 0) {
+                body.find('p').text(`${opcoes.length} Opções Cadastradas.`);
+            } else {
+                body.append(`<p style="color:white">${opcoes.length} Opções Cadastradas.</p>`);
+            }
+            $('#error-message').text('');
+        }
+
+        console.log(opcoes);
+    });
+
+
 
     $('#addResposta').on('click', function () {
         const resposta = $('#resposta-item').val();
 
-        respostas.push(resposta)
-        console.log(respostas)
-    })
+        if ($.trim(resposta).length == 0) {
+            $('#error-message').text('Resposta inválida.');
+        } else {
+            respostas.push(resposta);
+            const body = $('#respostasCount');
+
+            const existingCount = body.find('p').length;
+
+            if (existingCount > 0) {
+                body.find('p').text(`${respostas.length} Respostas Cadastradas.`);
+            } else {
+                body.append(`<p style="color:white">${respostas.length} Respostas Cadastradas.</p>`);
+            }
+            $('#error-message').text('');
+        }
+
+        console.log(respostas);
+    });
+
 
     $('#myDropdown').change(function () {
         var selectedOption = $(this).val();
         var numericValue = parseInt(selectedOption.split(' ')[0]);
+        opcoes = []
+        $('#error-message').text('');
 
-        // Verifica se o tipo é 4 (Múltipla Escolha) ou 5 (Única Escolha)
+        $('#opcoesCount').empty();
         if (numericValue === 4 || numericValue === 5) {
             $('#data-input').removeClass('hide');
         } else {
@@ -170,113 +304,137 @@
     $(function () {
         $("#vistoria-form").submit(function () {
             event.preventDefault();
-            
+
             let url = 'https://localhost:44350/api/vistorias';
             const descricao = $('#descricao').val();
             const processo = $('#processo').val();
-            const codvistoria = $('#codvistoria').val();
-            
+
             const data = {
                 descricao,
                 processo,
-                codvistoria
             };
-            
 
-            const vistoriaId = $('#buttonCreateTeste').data('vistoria-id');
-            if (vistoriaId) {
-                url += '/' + vistoriaId;
-                $.ajax({
-                    url: url,
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    success: function (result) {
-                        console.log(result);
-                        location.reload();
-                    },
-                    error: function (error) {
-                        console.error('Erro:', error);
-                    }
-                });
+            if ($.trim(descricao).length == 0) {
+                $('#error-message').text('Descrição inválida.');
+            } else if ($.trim(processo).length == 0) {
+                $('#error-message').text('Processo inválido.');
             } else {
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    success: function (result) {
-                        itens.forEach(function (item) {
-                            $.ajax({
-                                url: `https://localhost:44350/api/itens?idVistoria=${result.idVistoria}`,
-                                type: 'POST',
-                                contentType: 'application/json',
-                                data: JSON.stringify(item),
-                                success: function (result) {
-                                    item.opcoes.forEach(function (opcao) {
-                                        $.ajax({
-                                            url: `https://localhost:44350/api/opcoes?idItem=${result.idItem}`,
-                                            type: 'POST',
-                                            contentType: 'application/json',
-                                            data: JSON.stringify({opcao}),
-                                            success: function (result) {
-                                                console.log(result)
-                                            },
+                const vistoriaId = $('#buttonCreate').data('vistoria-id');
+                if (vistoriaId) {
+                    url += '/' + vistoriaId;
+                    $.ajax({
+                        url: url,
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            console.log(result);
+                            location.reload();
+                        },
+                        error: function (error) {
+                            console.error('Erro:', error);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            itens.forEach(function (item) {
+                                $.ajax({
+                                    url: `https://localhost:44350/api/itens?idVistoria=${result.idVistoria}`,
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(item),
+                                    success: function (result) {
+                                        item.opcoes.forEach(function (opcao) {
+                                            $.ajax({
+                                                url: `https://localhost:44350/api/opcoes?idItem=${result.idItem}`,
+                                                type: 'POST',
+                                                contentType: 'application/json',
+                                                data: JSON.stringify({ opcao }),
+                                                success: function (result) {
+                                                    console.log(result)
+                                                },
+                                            })
                                         })
-                                    })
 
-                                    item.respostas.forEach(function (resposta) {
-                                        $.ajax({
-                                            url: `https://localhost:44350/api/respostas?idItem=${result.idItem}`,
-                                            type: 'POST',
-                                            contentType: 'application/json',
-                                            data: JSON.stringify({resposta}),
-                                            success: function (result) {
-                                                console.log(result)
-                                            },
+                                        item.respostas.forEach(function (resposta) {
+                                            $.ajax({
+                                                url: `https://localhost:44350/api/respostas?idItem=${result.idItem}`,
+                                                type: 'POST',
+                                                contentType: 'application/json',
+                                                data: JSON.stringify({ resposta }),
+                                                success: function (result) {
+                                                    console.log(result)
+                                                },
+                                            })
                                         })
-                                    })
-                                },
+
+                                    },
+                                })
                             })
-                        })
-                    },
-                    error: function (error) {
-                        console.error('Erro:', error);
-                    }
-                });
+                            location.reload()
+                        },
+                        error: function (error) {
+                            console.error('Erro:', error);
+                        }
+                    });
+                }
             }
         })
+
+        function renderVistorias(vistorias) {
+            const tbody = $('#modelos-list');
+            tbody.empty();
+            vistorias.forEach(function (vistoria) {
+                const row = $('<tr /*style="display:flex;justify-content:space-between"*/>');
+
+                const acoesCell = $('<td style="display:flex;flex-direction:row">');
+                const editarBtn = $('<button>').addClass('btn btn-primary btn-editar btn-margin').css({ "margin-right": "10px" }).text('Editar');
+                editarBtn.data('vistoria-id', vistoria.idVistoria.toString());
+                editarBtn.data('descricao-edit', vistoria.descricao);
+                editarBtn.data('processo-edit', vistoria.processo);
+                editarBtn.appendTo(acoesCell);
+
+                const excluirBtn = $('<button>').addClass('btn btn-danger btn-excluir btn-margin').css({ "margin-right": "10px" }).text('Excluir');
+                excluirBtn.data('vistoria-id', vistoria.idVistoria.toString());
+                excluirBtn.appendTo(acoesCell);
+
+                row.append(acoesCell);
+                row.append($('<td /*style="width:100%"*/>').text(vistoria.idVistoria));
+                row.append($('<td /*style="width:100%"*/>').text(vistoria.descricao));
+                row.append($('<td /*style="width:100%"*/>').text(vistoria.processo));
+                const dataDeCadastro = new Date(vistoria.dataDeCadastro);
+                const dataFormatada = `${dataDeCadastro.getDate().toString().padStart(2, '0')}/${(dataDeCadastro.getMonth() + 1).toString().padStart(2, '0')}/${dataDeCadastro.getFullYear()}`;
+                row.append($('<td>').text(dataFormatada));
+
+                tbody.append(row);
+            });
+        }
+
+        function searchVistorias() {
+            const termo = $('#search-input-modelos').val().toLowerCase();
+            const vistoriasFiltradas = vistorias.filter(vistoria => {
+                return (
+                    vistoria.idVistoria.toString().includes(termo) ||
+                    vistoria.descricao.toLowerCase().includes(termo)
+                );
+            });
+            renderVistorias(vistoriasFiltradas);
+        }
+
+        $('#search-btn').click(searchVistorias);
 
         $.ajax({
             url: 'https://localhost:44350/api/vistorias',
             type: 'GET',
             success: function (result) {
                 console.log(result);
-                const tbody = $('#modelos-list');
-                tbody.empty();
-                result.forEach(function (vistoria) {
-                    const row = $('<tr /*style="display:flex;justify-content:space-between"*/>');
-
-                    const acoesCell = $('<td style="display:flex;flex-direction:row">');
-                    const editarBtn = $('<button>').addClass('btn btn-primary btn-editar btn-margin').css({ "margin-right": "10px" }).text('Editar');
-                    editarBtn.data('vistoria-id', vistoria.idVistoria.toString());
-                    editarBtn.data('codvistoria', vistoria.codVistoria);
-                    editarBtn.data('descricao', vistoria.descricao);
-                    editarBtn.data('processo', vistoria.processo);
-                    editarBtn.appendTo(acoesCell);
-
-                    const excluirBtn = $('<button>').addClass('btn btn-danger btn-excluir btn-margin').css({ "margin-right": "10px" }).text('Excluir');
-                    excluirBtn.data('vistoria-id', vistoria.idVistoria.toString());
-                    excluirBtn.appendTo(acoesCell);
-
-                    row.append(acoesCell);
-                    row.append($('<td /*style="width:100%"*/>').text(vistoria.descricao));
-                    row.append($('<td /*style="width:100%"*/>').text(vistoria.processo));
-                    row.append($('<td /*style="width:100%"*/>').text(vistoria.codVistoria));
-                    row.append($('<td /*style="width:100%"*/>').text(vistoria.dataDeCadastro));
-
-                    tbody.append(row);
-                });
+                vistorias = result;
+                renderVistorias(vistorias);
             },
             error: function (error) {
                 console.error('Erro:', error);
@@ -284,25 +442,157 @@
         });
     })
 
+    $(function () {
+        $("#vistoria-edit-form").submit(function (event) {
+            event.preventDefault();
+
+            let url = 'https://localhost:44350/api/vistorias';
+            const descricao = $('#descricao-edit').val();
+            const processo = $('#processo-edit').val();
+            const vistoriaId = $('#buttonEditVistoria').data('vistoria-id');
+
+            const data = {
+                descricao,
+                processo,
+            };
+
+            if ($.trim(descricao).length == 0) {
+                $('#error-message-edit').text('Descricao inválida.');
+            } else if ($.trim(processo).length == 0) {
+                $('#error-message-edit').text('Processo inválido.');
+            } else {
+                url += '/' + vistoriaId;
+
+                $.ajax({
+                    url: url,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        console.log('Vistoria atualizada:', result);
+                        updateItens();
+                    },
+                    error: function (error) {
+                        console.error('Erro:', error);
+                    }
+                });
+
+                function updateItens() {
+                    itensEditar.forEach(function (item) {
+                        const itemId = item.idItem;
+                        const descricao = $(`input.descricao-item[data-item-id="${itemId}"]`).val();
+                        const ordem = $(`input.ordem-item[data-item-id="${itemId}"]`).val();
+                        const tipo = $(`select.select-numero[data-item-id="${itemId}"]`).val();
+                        const vistoriaId = $('#buttonEditVistoria').data('vistoria-id');
+
+                        const data = {
+                            descricao,
+                            ordem,
+                            tipo,
+                            idVistoria: vistoriaId
+                        };
+
+                        if ($.trim(descricao).length == 0) {
+                            $('#error-message-edit').text('Descricao inválida.');
+                        } else if ($.trim(ordem).length == 0) {
+                            $('#error-message-edit').text('Ordem inválida.');
+                        } else {
+                            const url = `https://localhost:44350/api/itens/${itemId}`;
+
+                            $.ajax({
+                                url: url,
+                                type: 'PUT',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success: function (result) {
+                                    console.log('Item atualizado:', result);
+                                },
+                                error: function (error) {
+                                    console.error('Erro:', error);
+                                }
+                            });
+                            location.reload()
+                        }
+                    });
+                }
+            }
+        });
 
 
-    $(document).on('click', '.btn-editar', function () {
-        const processoId = $(this).data('vistoria-id');
-        console.log('Editar processo ID:', processoId);
 
-        const codVistoria = $(this).data('codvistoria');
-        const descricao = $(this).data('descricao');
-        const processo = $(this).data('processo');
+        $(document).on('click', '.btn-editar', function () {
+            itensEditar = [];
+            $('#error-message-edit').text('');
+            const vistoriaId = $(this).data('vistoria-id');
+            console.log('Editar processo ID:', vistoriaId);
 
-        $('#codvistoria').val(codVistoria);
-        $('#descricao').val(descricao);
-        $('#processo').val(processo);
+            const descricao = $(this).data('descricao-edit');
+            const processo = $(this).data('processo-edit');
 
-        $('#buttonCreateTeste').attr('data-vistoria-id', processoId);
+            $('#descricao-edit').val(descricao);
+            $('#processo-edit').val(processo);
 
-        $('#myModal').modal('show');
+            $('#buttonEditVistoria').attr('data-vistoria-id', vistoriaId);
+
+            $.ajax({
+                url: `https://localhost:44350/api/itens/${vistoriaId}`,
+                type: 'GET',
+                success: function (result) {
+                    const tbody = $('#itens-list');
+                    tbody.empty();
+                    result.forEach(function (item) {
+                        const row = $('<tr style="display:flex;justify-content:space-between;margin-bottom:10px">');
+
+                        row.append($('<button class="buttonExcluiItem btn btn-danger" data-vistoria-id="" data-item-id="">&times;</button>').val(item.idItem));
+                        row.append($('<input class="descricao-item form-control" type="text" placeholder="Inserir Descrição" aria-label="Descricao" aria-describedby="basic-addon1" style="width:65%">').val(item.descricao));
+                        row.append($('<input class="ordem-item form-control" type="text" placeholder="Inserir Ordem" aria-label="Ordem" aria-describedby="basic-addon1" style="width:10%">').val(item.ordem));
+
+                        const select = $('<select class="select-numero form-control" aria-label="Número" style="width:10%">');
+                        for (let i = 1; i <= 7; i++) {
+                            const option = $('<option>').text(i).attr('value', i);
+                            if (item.tipo === i) {
+                                option.attr('selected', 'selected');
+                            }
+                            select.append(option);
+                        }
+
+                        row.append(select);
+
+                        tbody.append(row);
+                        row.find('.buttonExcluiItem').attr('data-item-id', item.idItem);
+                        row.find('.descricao-item').attr('data-item-id', item.idItem);
+                        row.find('.ordem-item').attr('data-item-id', item.idItem);
+                        row.find('.select-numero').attr('data-item-id', item.idItem);
+                    });
+
+                    itensEditar.push(...result);
+                },
+                error: function (error) {
+                    console.error('Erro:', error);
+                }
+            });
+
+            $('#myModalEdit').modal('show');
+        });
+
+        $(document).on('click', '.buttonExcluiItem', function () {
+            event.preventDefault();
+            const itemId = $(this).data('item-id');
+            $.ajax({
+                url: `https://localhost:44350/api/itens/${itemId}`,
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function (result) {
+                    console.log(result);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error('Erro:', error);
+                }
+            });
+            console.log(itemId);
+        });
     });
-
 
 
     $(document).on('click', '.btn-excluir', function () {
@@ -324,21 +614,33 @@
     const element = document.getElementById('myModal');
 
     $('#create-vistoria-btn').on('click', function () {
+        itens = []
+        opcoes = []
+        respostas = []
+        $('#error-message').text('');
         $('#descricao').val('');
         $('#processo').val('');
-        $('#codvistoria').val('');
-
-        $('#buttonCreateTeste').removeData('vistoria-id');
+        $('#descricao-item').val('')
+        $('#ordem').val('')
+        $('#myDropdown').val('')
+        $('#opcao-item').val('')
+        $('#resposta-item').val('')
+        $('#opcoesCount').empty();
+        $('#respostasCount').empty();
+        $('#itensCount').empty();
+        $('#buttonCreate').removeData('vistoria-id');
 
         $('#myModal').modal('show');
     });
 
     $('.close-btn').click(function () {
         $('#myModal').modal('hide');
+        $('#myModalEdit').modal('hide');
     });
 
     $('.btn-secondary').click(function () {
         $('#myModal').modal('hide');
+        $('#myModalEdit').modal('hide');
     });
 </script>
 
