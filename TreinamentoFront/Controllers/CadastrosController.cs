@@ -33,6 +33,11 @@ namespace TreinamentoFront.Controllers
             return View();
         }
 
+        public IActionResult Processos()
+        {
+            return View();
+        }
+
 
         public IActionResult ModelosVistoria()
         {
